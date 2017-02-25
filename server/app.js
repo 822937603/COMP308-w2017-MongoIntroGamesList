@@ -8,12 +8,11 @@ let bodyParser = require('body-parser');
 // import "mongoose"
 let mongoose = require('mongoose');
 
-// URI
-let URI = "mongodb://localhost/videogames";
+// import config module
+let config = require('./config/db');
 
-//let URI = "mongodb://thomas:123456@ds054999.mlab.com:54999/videogames"; change thomas to jon on mlab
-
-mongoose.connect(URI);
+// connect to the Mongo db using the URI above
+mongoose.connect(config.URI);
 
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -35,7 +34,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/', index);
 
